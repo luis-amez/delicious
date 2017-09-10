@@ -76,3 +76,9 @@ exports.updateStore = async (req, res) => {
   req.flash("succes", `Successfully updated <strong>${store.name}</strong>. <a href="/stores/${store.slug}">View Store</a>`);
   res.redirect(`/stores/${store._id}/edit`);
 };
+
+exports.getStoreBySlug = async (req, res, next) => {
+  const store = await Store.findOne({ slug: req.params.slug });
+  if(!store) return next();
+  res.render("store", { title: store.name, store });
+}
