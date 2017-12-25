@@ -32,4 +32,4 @@ userSchema.virtual("gravatar").get(function() {
 userSchema.plugin(passportLocalMongoose, { usernameField: "email" });
 userSchema.plugin(mongodbErrorHandler);
 
-module.exports = mongoose.model("User", userSchema);
+module.exports = mongoose.model('User', userSchema);
