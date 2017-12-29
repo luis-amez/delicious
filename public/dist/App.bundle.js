@@ -1047,6 +1047,8 @@ function loadPlaces(map) {
     // Center and zoom the map according to the bounds
     map.setCenter(bounds.getCenter());
     map.fitBounds(bounds);
+  }).catch(function (err) {
+    console.error(err);
   });
 }
 
@@ -2794,6 +2796,10 @@ var _map = __webpack_require__(11);
 
 var _map2 = _interopRequireDefault(_map);
 
+var _heart = __webpack_require__(39);
+
+var _heart2 = _interopRequireDefault(_heart);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _autocomplete2.default)((0, _bling.$)('#address'), (0, _bling.$)('#lat'), (0, _bling.$)('#lng'));
@@ -2801,6 +2807,55 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 (0, _typeAhead2.default)((0, _bling.$)('.search'));
 
 (0, _map2.default)((0, _bling.$)('#map'));
+
+var heartForms = (0, _bling.$$)('form.heart');
+heartForms.on('submit', _heart2.default);
+
+/***/ }),
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = __webpack_require__(3);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _bling = __webpack_require__(2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function ajaxHeart(event) {
+  var _this = this;
+
+  event.preventDefault();
+  _axios2.default.post(this.action).then(function (res) {
+    var isHearted = _this.heart.classList.toggle('heart__button--hearted');
+    (0, _bling.$)('.heart-count').textContent = res.data.hearts.length;
+    // Add little animation
+    if (isHearted) {
+      _this.heart.classList.add('heart__button--float');
+      setTimeout(function () {
+        _this.heart.classList.remove('heart__button--float');
+      }, 1500);
+    }
+  }).catch(function (err) {
+    console.error(err);
+  });
+}
+
+exports.default = ajaxHeart;
 
 /***/ })
 /******/ ]);

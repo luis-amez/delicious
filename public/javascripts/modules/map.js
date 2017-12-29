@@ -46,6 +46,9 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
       // Center and zoom the map according to the bounds
       map.setCenter(bounds.getCenter());
       map.fitBounds(bounds);
+    })
+    .catch(err => {
+      console.error(err);
     });
 }
 
