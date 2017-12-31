@@ -76,6 +76,29 @@ storeSchema.statics.getTagsList = function() {
   ]);
 };
 
+storeSchema.statics.getTopStores = function() {
+  return this.aggregate([
+    // Find stores and populate their reviews
+    { $lookup: 
+      { from: 'reviews', localField: '_id', foreignField: 'store', as: 'reviews' }
+    },
+    // Filter for stores with 2 or more reviews
+    { $match: 
+      { 'reviews.1': { $exists: true } } 
+    },
+    // Add the average field
+    { $addFields: 
+      { averageRating: { $avg: '$reviews.rating' } } 
+    },
+    // Sort by average (higher first)
+    { $sort: 
+      { averageRating: -1 } 
+    },
+    // Limit to 10 results
+    { $limit: 10 }
+  ]);
+};
+
 // Populate this virtual field with reviews where the store property is equal to the _id of this store
 storeSchema.virtual('reviews', {
   ref: 'Review',
