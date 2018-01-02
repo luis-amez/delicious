@@ -1,3 +1,3 @@
 ## Are you hungry?
 
-Try these delicious places: [delicioso.herokuapp.com](delicioso.herokuapp.com)!
+Try these delicious places: [http://delicioso.herokuapp.com/](http://delicioso.herokuapp.com/)!
